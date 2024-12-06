@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class HomeController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public String indexPage(){
+    public String indexPage() {
         return "index";
     }
 
-
-
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public String listPage() {
+        return "list";
+    }
 }

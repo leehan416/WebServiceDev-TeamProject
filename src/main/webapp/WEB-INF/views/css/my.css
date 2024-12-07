@@ -1,0 +1,184 @@
+@media (max-width: 600px) {
+    .display-flex {
+        flex-direction: column;
+    }
+
+    .sr {
+        text-align: right;
+    }
+
+    .block {
+        display: block;
+    }
+
+    .block.width20,
+    .block.width80 {
+        flex: 0 0 100%;
+        width: 100%;
+    }
+
+    .width100 {
+        width: 100%;
+    }
+
+    .phone {
+        display: none;
+    }
+}
+
+/* desktop */
+@media (min-width: 600px) {
+    block {
+        display: inline;
+
+    }
+
+    .sr {
+        margin-top: 2em;
+    }
+
+    .phone {
+        display: inline;
+    }
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+label {
+    padding: 1em 0em;
+}
+
+h6 {
+    color: grey;
+}
+
+textarea {
+    resize: none;
+}
+
+.display-flex {
+    display: flex;
+}
+
+
+.text-grey {
+    color: grey;
+}
+
+
+.form-control:focus {
+    color: #212529;
+    background-color: #fff;
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 .25rem rgba(13, 110, 253, .25);
+}
+
+
+.order-price{
+    text-align: right;
+    margin: .5em 1em;
+}
+
+.form-control {
+    margin: .3em 0em;
+    padding: .375rem .75rem;
+    font-size: 1.1rem;
+}
+
+
+.table-left {
+    width: 7em;
+}
+
+.height20em {
+    height: 20em;
+}
+
+textarea {
+    resize: none;
+}
+
+.form-control:focus {
+    color: #212529;
+    background-color: #fff;
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 .25rem rgba(13, 110, 253, .25);
+}
+
+.height20em {
+    height: 20em;
+}
+
+.full-size {
+    width: 100%;
+}
+
+.width80 {
+    width: 80%;
+}
+
+
+.width20 {
+    width: 20%;
+    flex: 0 0 20%;
+}
+
+.width80 {
+    width: 80%;
+    flex: 0 0 80%;
+}
+
+.width100 {
+    width: 100%;
+    flex: 0 0 100%;
+}
+
+.width30 {
+    width: 30%;
+}
+
+.height20em {
+    height: 20em;
+}
+
+.right {
+    text-align: right;
+}
+
+.content-title {
+    width: 70%;
+    font-size: large;
+
+}
+
+.content-price {
+    margin-left: auto;
+    margin-right: 1em;
+    text-align: right;
+    width: auto;
+    font-size: large;
+    color: black
+}
+
+.content-date {
+
+    margin-left: auto;
+    margin-right: 1.3em;
+    text-align: right;
+    width: auto;
+    color: rgb(190, 190, 190);
+}
+
+.content-sumary{
+    color: rgb(190, 190, 190);
+
+}
+.right-margin-writor{
+    font-weight: 700;
+    margin-right: 1.3em;
+}

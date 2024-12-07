@@ -73,6 +73,17 @@
         내용내용내용
     </p>
 
+
+    <!-- Reservation Button -->
+    <div class="text-center mt-4">
+        <a href="${pageContext.request.contextPath}/reserve">
+            <button class="btn btn-primary btn-lg d-inline-flex align-items-center" type="button">
+                예약하기
+            </button>
+        </a>
+    </div>
+
+
 </main>
 
 <%@include file="inc/foot.jsp" %>

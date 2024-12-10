@@ -6,6 +6,6 @@
         <typeAlias alias="User" type="com.team.user.VO.UserVO"/>
     </typeAliases>
     <mappers>
-        <mapper class = "com.team.user.mapper.UserMapper" />
+        <mapper class="com.team.user.mapper.UserMapper"/>
     </mappers>
 </configuration>

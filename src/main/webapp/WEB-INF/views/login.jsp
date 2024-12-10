@@ -22,14 +22,13 @@
 <%@ include file="inc/top.jsp" %>
 <main class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
     <div class="col-12 col-md-6 col-lg-4">
-        <!-- action 속성에 /login/loginOk 추가 -->
         <form class="p-4 border rounded-3 shadow-sm" action="${pageContext.request.contextPath}/login/loginOk" method="POST">
             <div class="text-center mb-4">
                 <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
             </div>
 
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="email" required>
+                <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="user_id" required>
                 <label for="floatingInput">Email address</label>
             </div>
 

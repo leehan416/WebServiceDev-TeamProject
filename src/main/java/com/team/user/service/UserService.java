@@ -22,4 +22,8 @@ public class UserService {
         System.out.println("!!!");
         return user;
     }
+
+    public UserVO getUser(UserVO vo) {
+        return userMapper.getUser(vo);
+    }
 }

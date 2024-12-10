@@ -14,7 +14,6 @@ public class UserController {
     @Autowired
     public UserService userService;
 
-
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public String testMethod(Model model){
         UserVO user = userService.getUserById(1);

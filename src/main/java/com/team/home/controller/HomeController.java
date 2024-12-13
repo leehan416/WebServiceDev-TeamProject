@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-// page controller
+// Page Controller
 @Controller
 public class HomeController {
 
@@ -26,11 +26,16 @@ public class HomeController {
         return "view";
     }
 
-    @RequestMapping(value = "/write")
-    public String viewPage() {
+    @RequestMapping(value = "/write", method = RequestMethod.GET)
+    public String writePage() {
         return "write";
     }
-//
+
+    @RequestMapping(value = "/performance/write_ok", method = RequestMethod.POST)
+    public String writeOkPage() {
+        return "write_ok";
+    }
+
     @RequestMapping(value = "/login")
     public String loginPage() {
         return "login";

@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Write Performance</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -20,81 +20,75 @@
 
 <%@include file="inc/top.jsp" %>
 
-<!-- 정보 입력 -->
+<!-- Performance Entry Form -->
 
 <main class="container">
-    <form action="${pageContext.request.contextPath}/write_ok" method="post">
-        <input type="hidden" name="id">
-        <!-- 정보 입력 -->
+    <form action="${pageContext.request.contextPath}/performance/write_ok" method="post" enctype="multipart/form-data">
         <input type="hidden" name="id">
 
-        <!-- title -->
-        <div class="display-flex">
-        <span class="block width20 ">
-          <label for="booktitle">Title</label>
-
-        </span>
-            <span class="block width80 ">
-                 <input class="form-control width100" type="text" id="booktitle" name="title" required>
-            </span>
-        </div>
-
-        <!-- maximum number of person -->
-        <div class="display-flex">
+        <!-- Performance Title -->
+        <div class="display-flex mb-3">
             <span class="block width20">
-                <label for="price">maximum people</label>
+                <label for="performanceTitle">Title</label>
             </span>
-            <span class="block width80 ">
-            <input class="form-control width100" type="number" id="price" name="price" required>
+            <span class="block width80">
+                <input class="form-control" type="text" id="performanceTitle" name="title" required>
             </span>
         </div>
 
-
-
-
-        <!-- date and num -->
-        <div class="width100 display-flex">
-        <span class="width20 block">
-          <label>Date</label>
-        </span>
-            <span class="block width80 ">
-            <input class="form-control full-size" type="date" id="reg_date" name="reg_date" required>
-
-        </span>
+        <!-- Current and Maximum Participants -->
+        <div class="display-flex mb-3">
+            <span class="block width20">
+                <label for="currentNum">Current Participants</label>
+            </span>
+            <span class="block width80">
+                <input class="form-control" type="number" id="currentNum" name="currentNum" required>
+            </span>
+        </div>
+        <div class="display-flex mb-3">
+            <span class="block width20">
+                <label for="maxNum">Maximum Participants</label>
+            </span>
+            <span class="block width80">
+                <input class="form-control" type="number" id="maxNum" name="maxNum" required>
+            </span>
         </div>
 
-        <%-- file--%>
-        <div class="width100 display-flex">
-        <span class="width20 block">
-          <label>Poster</label>
-        </span>
-            <span class="block width80 ">
-          <input class="form-control full-size" type="file" id="file" name="file">
-        </span>
+        <!-- Performance Date -->
+        <div class="display-flex mb-3">
+            <span class="block width20">
+                <label for="performanceDate">Date</label>
+            </span>
+            <span class="block width80">
+                <input class="form-control" type="date" id="performanceDate" name="performanceDate" required>
+            </span>
         </div>
 
-        <!-- content -->
-        <textarea class="form-control full-size height20em" name="content" id="content" required></textarea>
+        <!-- Poster Upload -->
+        <div class="display-flex mb-3">
+            <span class="block width20">
+                <label for="posterFile">Poster</label>
+            </span>
+            <span class="block width80">
+                <input class="form-control" type="file" id="posterFile" name="posterFile" required>
+            </span>
+        </div>
 
-        <!-- button -->
-        <center>
-            <div class="d-flex gap-2 justify-content-center py-5">
-                <a href="${pageContext.request.contextPath}/list">
-                    <button class="btn btn-outline-secondary d-inline-flex align-items-center" type="button">cancel
-                    </button>
-                </a>
-                <button class="btn btn-primary d-inline-flex align-items-center"
-                        type="submit"> confirm
-                </button>
+        <!-- Performance Content -->
+        <div class="mb-3">
+            <label for="content">Content</label>
+            <textarea class="form-control" id="content" name="content" rows="10" required></textarea>
+        </div>
 
-            </div>
-        </center>
+        <!-- Submit Buttons -->
+        <div class="text-center py-4">
+            <a href="${pageContext.request.contextPath}/performance/list" class="btn btn-outline-secondary">Cancel</a>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
     </form>
 </main>
 
-
 <%@include file="inc/foot.jsp" %>
-
 
 </body>
 

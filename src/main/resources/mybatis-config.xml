@@ -4,8 +4,10 @@
     <typeAliases>
         <!--   set VO here     -->
         <typeAlias alias="User" type="com.team.user.VO.UserVO"/>
+        <typeAlias alias="Performance" type="com.team.performance.VO.PerformanceVO"/>
     </typeAliases>
     <mappers>
         <mapper class="com.team.user.mapper.UserMapper"/>
+        <mapper class="com.team.performance.mapper.PerformanceMapper"/>
     </mappers>
 </configuration>

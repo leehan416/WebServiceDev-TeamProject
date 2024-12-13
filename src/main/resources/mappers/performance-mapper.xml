@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.performance.mapper.PerformanceMapper">
+
+    <!-- Get Performance by ID -->
+    <select id="getPerformanceById" resultType="com.team.performance.VO.PerformanceVO">
+        SELECT *
+        FROM performance
+        WHERE id = #{id}
+    </select>
+
+    <!-- Get Performance by Title and Date -->
+    <select id="getPerformance" resultType="com.team.performance.VO.PerformanceVO">
+        SELECT *
+        FROM performance
+        WHERE title = #{title}
+          AND performance_date = #{performanceDate}
+    </select>
+
+</mapper>

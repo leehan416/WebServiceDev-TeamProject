@@ -19,7 +19,7 @@
 
 <body class="writing">
 
-<%@ include file="inc/top.jsp" %>
+<%@ include file="../../inc/top.jsp" %>
 <main class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
     <div class="col-12 col-md-6 col-lg-4">
         <form class="p-4 border rounded-3 shadow-sm" action="${pageContext.request.contextPath}/login/loginOk" method="POST">
@@ -41,7 +41,7 @@
     </div>
 </main>
 
-<%@ include file="inc/foot.jsp" %>
+<%@ include file="../../inc/foot.jsp" %>
 
 </body>
 

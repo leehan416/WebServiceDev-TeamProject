@@ -21,7 +21,7 @@
 
 <body>
 
-<%@include file="inc/top.jsp" %>
+<%@include file="../inc/top.jsp" %>
 
 <main class="container">
     <div class="my-3 p-3 bg-body rounded shadow-sm">
@@ -70,7 +70,7 @@
     </div>
 </main>
 
-<%@include file="inc/foot.jsp" %>
+<%@include file="../inc/foot.jsp" %>
 
 </body>
 

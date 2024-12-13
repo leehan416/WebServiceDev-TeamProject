@@ -20,10 +20,9 @@ public class LoginController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String loginPage() {
-        return "login";
+        return "user/login/login";
     }
 
-    // TODO : login encryption!!
     @RequestMapping(value = "/loginOk", method = RequestMethod.POST)
     public String loginCheck(HttpSession session, UserVO vo) {
 
@@ -53,7 +52,7 @@ public class LoginController {
             session.setAttribute("login", loginvo);
 
             // redirection set
-            returnURL = "redirect:/list";
+            returnURL = "redirect:/performance/list";
         }
         // login fail
         else {
@@ -71,7 +70,6 @@ public class LoginController {
         return returnURL;
     }
 
-    // logout
     @RequestMapping(value = "/logout")
     public String logout(HttpSession session) {
         // session remove

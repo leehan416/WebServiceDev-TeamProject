@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team.performance.mapper.PerformanceMapper">
 
@@ -17,5 +16,11 @@
         WHERE title = #{title}
           AND performance_date = #{performanceDate}
     </select>
+
+    <!-- Insert Performance -->
+    <insert id="insertPerformance" parameterType="com.team.performance.VO.PerformanceVO">
+        INSERT INTO performance (title, current_num, max_num, performance_date, poster_file, content)
+        VALUES (#{title}, #{currentNum}, #{maxNum}, #{performanceDate}, #{posterFile}, #{content})
+    </insert>
 
 </mapper>

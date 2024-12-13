@@ -9,4 +9,6 @@ public interface PerformanceMapper {
     PerformanceVO getPerformanceById(Integer id);
 
     PerformanceVO getPerformance(PerformanceVO vo);
+
+    void insertPerformance(PerformanceVO performance);
 }

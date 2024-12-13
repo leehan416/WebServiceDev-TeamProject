@@ -18,7 +18,7 @@
 
 <body class="confirmation">
 
-<%@include file="inc/top.jsp" %>
+<%@include file="../inc/top.jsp" %>
 
 <!-- Submission Confirmation -->
 
@@ -28,17 +28,17 @@
         <p>Your performance entry has been successfully saved. Thank you for submitting the information.</p>
 
         <div class="mt-4 d-flex justify-content-center gap-3">
-            <a href="${pageContext.request.contextPath}/performance/write">
+            <a href="${pageContext.request.contextPath}/write">
                 <button class="btn btn-outline-primary">Submit Another Entry</button>
             </a>
-            <a href="${pageContext.request.contextPath}/performance/list">
+            <a href="${pageContext.request.contextPath}/list">
                 <button class="btn btn-primary">Back to List</button>
             </a>
         </div>
     </div>
 </main>
 
-<%@include file="inc/foot.jsp" %>
+<%@include file="../inc/foot.jsp" %>
 
 </body>
 

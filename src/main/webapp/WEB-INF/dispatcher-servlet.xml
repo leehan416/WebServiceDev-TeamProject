@@ -40,7 +40,8 @@
 
     <!-- MyBatis Mapper Scanner Configuration -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.team.user.mapper,com.team.performance.mapper"/>
+        <!-- Include reservation.mapper in the scanned package -->
+        <property name="basePackage" value="com.team.user.mapper,com.team.performance.mapper,com.team.reservation.mapper"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 

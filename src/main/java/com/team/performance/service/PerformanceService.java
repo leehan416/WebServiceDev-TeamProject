@@ -11,12 +11,11 @@ import org.springframework.stereotype.Service;
 public class PerformanceService {
 
     @Autowired
-    public PerformanceMapper performanceMapper;
+    private PerformanceMapper performanceMapper;
 
     public PerformanceVO getPerformanceById(Integer id) {
         log.info("Fetching performance with ID: {}", id);
         PerformanceVO performance = performanceMapper.getPerformanceById(id);
-
         log.info("Performance title: {}", performance.getTitle());
         return performance;
     }
@@ -24,5 +23,11 @@ public class PerformanceService {
     public PerformanceVO getPerformance(PerformanceVO vo) {
         log.info("Fetching performance with details: {}", vo);
         return performanceMapper.getPerformance(vo);
+    }
+
+    public void addPerformance(PerformanceVO performance) {
+        log.info("Adding new performance: {}", performance);
+        performanceMapper.insertPerformance(performance);
+        log.info("Performance added successfully.");
     }
 }

@@ -37,6 +37,4 @@ build/
 ### Mac OS ###
 .DS_Store
 
-# Ignore everything in WEB-INF but include applicationContext.xml
-src/main/webapp/WEB-INF/*
-!src/main/webapp/WEB-INF/applicationContext.xml
+!**/src/main/webapp/WEB-INF/applicationContext.xml

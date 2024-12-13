@@ -22,14 +22,6 @@ public class ReservationService {
      */
     public List<ReservationVO> getUserReservations(Integer userId) {
         log.info("Fetching reservations for userId: {}", userId);
-        List<ReservationVO> reservations = reservationMapper.selectReservationsByUserId(userId);
-
-        if (reservations == null || reservations.isEmpty()) {
-            log.warn("No reservations found for userId: {}", userId);
-        } else {
-            log.info("Total reservations found: {}", reservations.size());
-        }
-
-        return reservations;
+        return reservationMapper.selectReservationsByUserId(userId);
     }
 }

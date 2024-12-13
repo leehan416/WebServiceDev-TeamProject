@@ -1,9 +1,19 @@
 <div class="container">
-    <footer class="py-3 my-4">
-        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-            <li class="nav-item"><a href="${pageContext.request.contextPath}/list" class="nav-link px-2 text-body-secondary">List</a></li>
-            <li class="nav-item"><a href="${pageContext.request.contextPath}/write" class="nav-link px-2 text-body-secondary">Add New</a></li>
+    <footer class="py-3 my-4 border-top">
+        <!-- Navigation Links -->
+        <ul class="nav justify-content-center pb-3 mb-3">
+            <li class="nav-item">
+                <a href="${pageContext.request.contextPath}/performance/list" class="nav-link px-2 text-muted">Performance List</a>
+            </li>
+            <li class="nav-item">
+                <a href="${pageContext.request.contextPath}/performance/write" class="nav-link px-2 text-muted">Add New</a>
+            </li>
+            <li class="nav-item">
+                <a href="${pageContext.request.contextPath}/user/reservations" class="nav-link px-2 text-muted">My Reservations</a>
+            </li>
         </ul>
-        <p class="text-center text-body-secondary">&copy; 2024 Company, Inc</p>
+
+        <!-- Copyright -->
+        <p class="text-center text-muted">&copy; 2024 HisTicket, Inc. All rights reserved.</p>
     </footer>
 </div>

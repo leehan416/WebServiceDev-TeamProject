@@ -2,10 +2,14 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <typeAliases>
-        <!--   set VO here     -->
+        <!-- Set VO here -->
         <typeAlias alias="User" type="com.team.user.VO.UserVO"/>
+        <typeAlias alias="Performance" type="com.team.performance.VO.PerformanceVO"/>
+        <typeAlias alias="Reservation" type="com.team.reservation.VO.ReservationVO"/>
     </typeAliases>
     <mappers>
         <mapper class="com.team.user.mapper.UserMapper"/>
+        <mapper class="com.team.performance.mapper.PerformanceMapper"/>
+        <mapper class="com.team.reservation.mapper.ReservationMapper"/>
     </mappers>
 </configuration>

@@ -1,33 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team.reservation.mapper.ReservationMapper">
 
-    <!-- Get Reservation by ID -->
     <select id="getReservationById" resultType="com.team.reservation.VO.ReservationVO">
-        SELECT *
-        FROM reservation
-        WHERE id = #{id}
+        SELECT r.id, r.user_id AS userId, r.performance_id AS performanceId,
+               p.title AS performanceTitle, p.performance_date AS performanceDate,
+               r.reg_date AS regDate
+        FROM reservation r
+                 INNER JOIN performance p ON r.performance_id = p.id
+        WHERE r.id = #{id}
     </select>
 
-    <!-- Get Reservation by User ID and Performance ID -->
     <select id="getReservation" resultType="com.team.reservation.VO.ReservationVO">
-        SELECT *
-        FROM reservation
-        WHERE user_id = #{userId}
-          AND performance_id = #{performanceId}
+        SELECT r.id, r.user_id AS userId, r.performance_id AS performanceId,
+               p.title AS performanceTitle, p.performance_date AS performanceDate,
+               r.reg_date AS regDate
+        FROM reservation r
+                 INNER JOIN performance p ON r.performance_id = p.id
+        WHERE r.user_id = #{userId} AND r.performance_id = #{performanceId}
     </select>
 
-    <!-- Insert Reservation -->
     <insert id="insertReservation" parameterType="com.team.reservation.VO.ReservationVO">
         INSERT INTO reservation (user_id, performance_id)
         VALUES (#{userId}, #{performanceId})
     </insert>
 
-    <!-- Get All Reservations by User ID -->
     <select id="selectReservationsByUserId" resultType="com.team.reservation.VO.ReservationVO">
-        SELECT *
-        FROM reservation
-        WHERE user_id = #{userId}
+        SELECT r.id, r.user_id AS userId, r.performance_id AS performanceId,
+               p.title AS performanceTitle, p.performance_date AS performanceDate,
+               r.reg_date AS regDate
+        FROM reservation r
+                 INNER JOIN performance p ON r.performance_id = p.id
+        WHERE r.user_id = #{userId}
+        ORDER BY r.reg_date DESC
     </select>
 
 </mapper>

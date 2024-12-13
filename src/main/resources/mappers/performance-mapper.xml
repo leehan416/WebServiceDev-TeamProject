@@ -2,25 +2,95 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team.performance.mapper.PerformanceMapper">
 
+    <!-- Get All Performances -->
+    <select id="getAllPerformances" resultType="com.team.performance.VO.PerformanceVO">
+        SELECT
+            id,
+            title,
+            current_num AS currentNum,
+            max_num AS maxNum,
+            performance_date AS performanceDate,
+            reg_date AS regDate,
+            poster_file AS posterFile,
+            content
+        FROM
+            performance
+        ORDER BY
+            performance_date DESC
+    </select>
+
     <!-- Get Performance by ID -->
-    <select id="getPerformanceById" resultType="com.team.performance.VO.PerformanceVO">
-        SELECT *
-        FROM performance
-        WHERE id = #{id}
+    <select id="getPerformanceById" parameterType="int" resultType="com.team.performance.VO.PerformanceVO">
+        SELECT
+            id,
+            title,
+            current_num AS currentNum,
+            max_num AS maxNum,
+            performance_date AS performanceDate,
+            reg_date AS regDate,
+            poster_file AS posterFile,
+            content
+        FROM
+            performance
+        WHERE
+            id = #{id}
     </select>
 
     <!-- Get Performance by Title and Date -->
     <select id="getPerformance" resultType="com.team.performance.VO.PerformanceVO">
-        SELECT *
-        FROM performance
-        WHERE title = #{title}
+        SELECT
+            id,
+            title,
+            current_num AS currentNum,
+            max_num AS maxNum,
+            performance_date AS performanceDate,
+            reg_date AS regDate,
+            poster_file AS posterFile,
+            content
+        FROM
+            performance
+        WHERE
+            title = #{title}
           AND performance_date = #{performanceDate}
     </select>
 
     <!-- Insert Performance -->
     <insert id="insertPerformance" parameterType="com.team.performance.VO.PerformanceVO">
-        INSERT INTO performance (title, current_num, max_num, performance_date, poster_file, content)
-        VALUES (#{title}, #{currentNum}, #{maxNum}, #{performanceDate}, #{posterFile}, #{content})
+        INSERT INTO performance (
+            title,
+            current_num,
+            max_num,
+            performance_date,
+            poster_file,
+            content
+        ) VALUES (
+                     #{title},
+                     #{currentNum},
+                     #{maxNum},
+                     #{performanceDate},
+                     #{posterFile},
+                     #{content}
+                 )
     </insert>
+
+    <!-- Delete Performance by ID -->
+    <delete id="deletePerformanceById" parameterType="int">
+        DELETE FROM performance
+        WHERE id = #{id}
+    </delete>
+
+    <!-- Update Performance -->
+    <update id="updatePerformance" parameterType="com.team.performance.VO.PerformanceVO">
+        UPDATE performance
+        SET
+            title = #{title},
+            current_num = #{currentNum},
+            max_num = #{maxNum},
+            performance_date = #{performanceDate},
+            poster_file = #{posterFile},
+            content = #{content}
+        WHERE
+            id = #{id}
+    </update>
 
 </mapper>

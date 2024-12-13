@@ -19,60 +19,36 @@ public class LoginController {
     private UserService userService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String loginPage() {
+    public String loginPage(HttpSession session) {
+        if (session.getAttribute("login") != null) {
+            return "redirect:/";
+        }
         return "user/login/login";
     }
 
     @RequestMapping(value = "/loginOk", method = RequestMethod.POST)
     public String loginCheck(HttpSession session, UserVO vo) {
-
-        // log start
         log.info("==========================================");
+        log.info("id = {} password = {}", vo.getUser_id(), vo.getPassword());
 
-        // log for information
-        log.info("id = {} passwod = {}", vo.getUser_id(), vo.getPassword());
+        if (session.getAttribute("login") != null) {
+            session.removeAttribute("login");
+        }
 
-        // return value (redirection)
-        String returnURL;
-
-        // if there are already login session
-        if (session.getAttribute("login") != null)
-            session.removeAttribute("login"); // remove login session
-
-        // get user vo by id
         UserVO loginvo = userService.getUser(vo);
 
-        // login success
-        if (loginvo != null) { // 로그인 성공
-
-            // log for success
+        if (loginvo != null) {
             log.info("login success!");
-
-            // session set
             session.setAttribute("login", loginvo);
-
-            // redirection set
-            returnURL = "redirect:/performance/list";
-        }
-        // login fail
-        else {
-            // log for fail
+            return "redirect:/performance/list";
+        } else {
             log.info("login fail!");
-
-            // redirection set
-            returnURL = "redirect:/login";
+            return "redirect:/login";
         }
-
-        // log end
-        log.info("==========================================");
-
-        // redirection
-        return returnURL;
     }
 
-    @RequestMapping(value = "/logout")
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpSession session) {
-        // session remove
         session.invalidate();
         return "redirect:/login";
     }

@@ -30,6 +30,9 @@
             <label for="performanceTitle" class="col-sm-2 col-form-label">Title</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="performanceTitle" name="title" value="${performance.title}" required>
+                <div class="invalid-feedback">
+                    Please provide a performance title.
+                </div>
             </div>
         </div>
 
@@ -38,12 +41,18 @@
             <label for="currentNum" class="col-sm-2 col-form-label">Current Participants</label>
             <div class="col-sm-10">
                 <input type="number" class="form-control" id="currentNum" name="currentNum" value="${performance.currentNum}" required>
+                <div class="invalid-feedback">
+                    Please specify the current number of participants.
+                </div>
             </div>
         </div>
         <div class="row mb-3">
             <label for="maxNum" class="col-sm-2 col-form-label">Maximum Participants</label>
             <div class="col-sm-10">
                 <input type="number" class="form-control" id="maxNum" name="maxNum" value="${performance.maxNum}" required>
+                <div class="invalid-feedback">
+                    Please provide the maximum number of participants.
+                </div>
             </div>
         </div>
 
@@ -52,6 +61,9 @@
             <label for="performanceDate" class="col-sm-2 col-form-label">Date</label>
             <div class="col-sm-10">
                 <input type="date" class="form-control" id="performanceDate" name="performanceDate" value="${performance.performanceDate}" required>
+                <div class="invalid-feedback">
+                    Please select a date for the performance.
+                </div>
             </div>
         </div>
 
@@ -60,6 +72,9 @@
             <label for="posterFile" class="col-sm-2 col-form-label">Poster</label>
             <div class="col-sm-10">
                 <input type="file" class="form-control" id="posterFile" name="posterFile" accept="image/*">
+                <div class="invalid-feedback">
+                    Please upload a valid poster image.
+                </div>
             </div>
         </div>
 
@@ -68,6 +83,9 @@
             <label for="content" class="col-sm-2 col-form-label">Content</label>
             <div class="col-sm-10">
                 <textarea class="form-control" id="content" name="content" rows="6" required>${performance.content}</textarea>
+                <div class="invalid-feedback">
+                    Please provide a description of the performance.
+                </div>
             </div>
         </div>
 
@@ -80,6 +98,23 @@
 </main>
 
 <%@ include file="../inc/foot.jsp" %>
+
+<script>
+    // Bootstrap validation
+    (function () {
+        'use strict';
+        const forms = document.querySelectorAll('.needs-validation');
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    })();
+</script>
 
 </body>
 

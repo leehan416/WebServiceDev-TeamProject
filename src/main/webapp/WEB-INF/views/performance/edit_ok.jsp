@@ -26,8 +26,12 @@
         <p class="mb-4">The performance has been updated successfully. You can now return to the list or view the updated performance.</p>
 
         <div class="d-flex justify-content-center gap-3">
+            <!-- Back to List -->
             <a href="${pageContext.request.contextPath}/performance/list" class="btn btn-secondary">Back to List</a>
-            <a href="${pageContext.request.contextPath}/performance/view/${performance.id}" class="btn btn-primary">View Performance</a>
+            <!-- View Updated Performance -->
+            <c:if test="${performance != null}">
+                <a href="${pageContext.request.contextPath}/performance/view/${performance.id}" class="btn btn-primary">View Performance</a>
+            </c:if>
         </div>
     </div>
 </main>

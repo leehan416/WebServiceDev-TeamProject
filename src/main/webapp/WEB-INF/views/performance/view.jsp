@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,22 +22,37 @@
 
 <main class="container mt-5">
     <div class="row">
+        <!-- Performance Poster -->
         <div class="col-md-4">
-            <!-- Performance Poster -->
-            <img src="${performance.posterFile}" alt="Performance Poster" class="img-fluid rounded shadow-sm">
+            <img src="${pageContext.request.contextPath}${performance.posterFile}"
+                 alt="Performance Poster" class="img-fluid rounded shadow-sm">
         </div>
+        <!-- Performance Details -->
         <div class="col-md-8">
             <h1 class="mb-3">${performance.title}</h1>
-            <p class="text-muted">Date: ${performance.performanceDate}</p>
-            <p class="text-muted">Participants: ${performance.currentNum} / ${performance.maxNum}</p>
-            <p>${performance.content}</p>
+            <p class="text-muted">
+                <strong>Date:</strong> ${performance.performanceDate}
+            </p>
+            <p class="text-muted">
+                <strong>Participants:</strong> ${performance.currentNum} / ${performance.maxNum}
+            </p>
+            <p class="mt-4">${performance.content}</p>
         </div>
     </div>
 
     <!-- Buttons -->
     <div class="mt-4 d-flex justify-content-end gap-3">
+        <!-- Back to List -->
         <a href="${pageContext.request.contextPath}/performance/list" class="btn btn-secondary">Back to List</a>
+        <!-- Reservation -->
         <a href="${pageContext.request.contextPath}/user/reservations/write/${performance.id}" class="btn btn-primary">Reserve</a>
+        <!-- Edit and Delete Buttons -->
+        <c:if test="${sessionScope.login != null}">
+            <a href="${pageContext.request.contextPath}/performance/edit/${performance.id}" class="btn btn-warning">Edit</a>
+            <form action="${pageContext.request.contextPath}/performance/delete/${performance.id}" method="post" style="display:inline;">
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        </c:if>
     </div>
 </main>
 

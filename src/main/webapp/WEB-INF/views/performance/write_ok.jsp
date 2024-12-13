@@ -23,9 +23,42 @@
 <main class="container mt-5">
     <div class="p-4 bg-light rounded shadow-sm text-center">
         <h2 class="text-success mb-3">Submission Successful!</h2>
-        <p class="mb-4">Your performance entry has been saved successfully. You can now view it in the list or add another performance.</p>
+        <p class="mb-4">Your performance entry has been saved successfully. Here are the details:</p>
 
-        <div class="d-flex justify-content-center gap-3">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <tbody>
+                <tr>
+                    <th>Title</th>
+                    <td>${performance.title}</td>
+                </tr>
+                <tr>
+                    <th>Current Participants</th>
+                    <td>${performance.currentNum}</td>
+                </tr>
+                <tr>
+                    <th>Maximum Participants</th>
+                    <td>${performance.maxNum}</td>
+                </tr>
+                <tr>
+                    <th>Date</th>
+                    <td>${performance.performanceDate}</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>${performance.content}</td>
+                </tr>
+                <tr>
+                    <th>Poster</th>
+                    <td>
+                        <img src="${pageContext.request.contextPath}${performance.posterFile}" alt="Poster Image" class="img-thumbnail" style="max-width: 200px;">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="d-flex justify-content-center gap-3 mt-4">
             <!-- Submit another entry -->
             <a href="${pageContext.request.contextPath}/performance/write" class="btn btn-outline-primary">Submit Another Entry</a>
             <!-- Back to list -->

@@ -28,15 +28,18 @@
         <h6 class="border-bottom pb-2 mb-0">Performance List</h6>
 
         <!-- Performance list dynamically generated -->
-        <c:forEach items="${performances}" var="performance">
+        <c:forEach items="${performanceList}" var="performance">
             <div class="d-flex align-items-start pt-3">
+                <!-- Performance Image -->
                 <div class="image-container me-3" style="width: 100px; height: 100px;">
                     <a href="${pageContext.request.contextPath}/performance/view/${performance.id}">
-                        <img src="${performance.posterFile}" alt="Performance Image"
+                        <img src="${pageContext.request.contextPath}${performance.posterFile}"
+                             alt="Performance Image"
                              class="img-fluid rounded"
                              style="width: 100%; height: 100%; object-fit: cover;">
                     </a>
                 </div>
+                <!-- Performance Details -->
                 <div class="flex-grow-1">
                     <a href="${pageContext.request.contextPath}/performance/view/${performance.id}" class="text-decoration-none text-dark">
                         <h5 class="mb-1">${performance.title}</h5>
@@ -48,7 +51,7 @@
         </c:forEach>
 
         <!-- Fallback for empty list -->
-        <c:if test="${fn:length(performances) == 0}">
+        <c:if test="${fn:length(performanceList) == 0}">
             <p class="text-center mt-4">No performances available.</p>
         </c:if>
     </div>

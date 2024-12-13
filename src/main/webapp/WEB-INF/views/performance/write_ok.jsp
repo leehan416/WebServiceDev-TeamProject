@@ -20,20 +20,16 @@
 
 <%@include file="../inc/top.jsp" %>
 
-<!-- Submission Confirmation -->
+<main class="container mt-5">
+    <div class="p-4 bg-light rounded shadow-sm text-center">
+        <h2 class="text-success mb-3">Submission Successful!</h2>
+        <p class="mb-4">Your performance entry has been saved successfully. You can now view it in the list or add another performance.</p>
 
-<main class="container">
-    <div class="my-5 p-4 bg-body rounded shadow-sm text-center">
-        <h2 class="text-success">Submission Successful</h2>
-        <p>Your performance entry has been successfully saved. Thank you for submitting the information.</p>
-
-        <div class="mt-4 d-flex justify-content-center gap-3">
-            <a href="${pageContext.request.contextPath}/write">
-                <button class="btn btn-outline-primary">Submit Another Entry</button>
-            </a>
-            <a href="${pageContext.request.contextPath}/list">
-                <button class="btn btn-primary">Back to List</button>
-            </a>
+        <div class="d-flex justify-content-center gap-3">
+            <!-- Submit another entry -->
+            <a href="${pageContext.request.contextPath}/performance/write" class="btn btn-outline-primary">Submit Another Entry</a>
+            <!-- Back to list -->
+            <a href="${pageContext.request.contextPath}/performance/list" class="btn btn-primary">Back to List</a>
         </div>
     </div>
 </main>

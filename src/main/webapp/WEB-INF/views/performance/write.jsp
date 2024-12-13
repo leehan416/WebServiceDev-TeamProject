@@ -18,17 +18,16 @@
 
 <body class="writing">
 
-<%@include file="../inc/top.jsp" %>
+<%@ include file="../inc/top.jsp" %>
 
-<!-- Performance Entry Form -->
-
-<main class="container">
-    <form action="${pageContext.request.contextPath}/write_ok" method="post" enctype="multipart/form-data">
+<main class="container mt-5">
+    <h1 class="text-center mb-4">Create a New Performance</h1>
+    <form action="${pageContext.request.contextPath}/performance/write_ok" method="post" enctype="multipart/form-data">
         <!-- Title -->
         <div class="row mb-3">
             <label for="performanceTitle" class="col-sm-2 col-form-label">Title</label>
             <div class="col-sm-10">
-                <input class="form-control" type="text" id="performanceTitle" name="title" required>
+                <input type="text" class="form-control" id="performanceTitle" name="title" placeholder="Enter performance title" required>
             </div>
         </div>
 
@@ -36,13 +35,13 @@
         <div class="row mb-3">
             <label for="currentNum" class="col-sm-2 col-form-label">Current Participants</label>
             <div class="col-sm-10">
-                <input class="form-control" type="number" id="currentNum" name="currentNum" required>
+                <input type="number" class="form-control" id="currentNum" name="currentNum" placeholder="0" required>
             </div>
         </div>
         <div class="row mb-3">
             <label for="maxNum" class="col-sm-2 col-form-label">Maximum Participants</label>
             <div class="col-sm-10">
-                <input class="form-control" type="number" id="maxNum" name="maxNum" required>
+                <input type="number" class="form-control" id="maxNum" name="maxNum" placeholder="Enter maximum participants" required>
             </div>
         </div>
 
@@ -50,7 +49,7 @@
         <div class="row mb-3">
             <label for="performanceDate" class="col-sm-2 col-form-label">Date</label>
             <div class="col-sm-10">
-                <input class="form-control" type="date" id="performanceDate" name="performanceDate" required>
+                <input type="date" class="form-control" id="performanceDate" name="performanceDate" required>
             </div>
         </div>
 
@@ -58,27 +57,27 @@
         <div class="row mb-3">
             <label for="posterFile" class="col-sm-2 col-form-label">Poster</label>
             <div class="col-sm-10">
-                <input class="form-control" type="file" id="posterFile" name="posterFile" accept="image/*" required>
+                <input type="file" class="form-control" id="posterFile" name="posterFile" accept="image/*" required>
             </div>
         </div>
 
         <!-- Content -->
         <div class="row mb-3">
-            <label for="content" class="col-sm-2 col-form-label">Content</label>
+            <label for="content" class="col-sm-2 col-form-label">Description</label>
             <div class="col-sm-10">
-                <textarea class="form-control" id="content" name="content" rows="10" required></textarea>
+                <textarea class="form-control" id="content" name="content" rows="6" placeholder="Enter performance details" required></textarea>
             </div>
         </div>
 
         <!-- Buttons -->
-        <div class="text-center py-4">
-            <a href="${pageContext.request.contextPath}/list" class="btn btn-outline-secondary">Cancel</a>
-            <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="text-center">
+            <a href="${pageContext.request.contextPath}/performance/list" class="btn btn-outline-secondary me-2">Cancel</a>
+            <button type="submit" class="btn btn-primary">Create Performance</button>
         </div>
     </form>
 </main>
 
-<%@include file="../inc/foot.jsp" %>
+<%@ include file="../inc/foot.jsp" %>
 
 </body>
 

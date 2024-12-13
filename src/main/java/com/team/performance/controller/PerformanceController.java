@@ -39,7 +39,17 @@ public class PerformanceController {
     }
 
     @RequestMapping(value = "/write_ok", method = RequestMethod.POST)
-    public String writeOkPage(@ModelAttribute PerformanceVO performance) {
+    public String writeOkPage(@ModelAttribute PerformanceVO performance, Model model) {
+        // Validate input fields
+        if (performance.getTitle() == null || performance.getTitle().trim().isEmpty()) {
+            model.addAttribute("error", "Title is required");
+            return "performance/write";
+        }
+
+        // Log debug info for troubleshooting
+        System.out.println("Performance Data: " + performance);
+
+        // Add performance
         performanceService.addPerformance(performance);
         return "redirect:/performance/list";
     }

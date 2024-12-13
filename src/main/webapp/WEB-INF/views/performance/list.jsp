@@ -21,56 +21,40 @@
 
 <body>
 
-<%@include file="../inc/top.jsp" %>
+<%@ include file="../inc/top.jsp" %>
 
 <main class="container">
     <div class="my-3 p-3 bg-body rounded shadow-sm">
-        <h6 class="border-bottom pb-2 mb-0">공연 목록</h6>
+        <h6 class="border-bottom pb-2 mb-0">Performance List</h6>
 
         <!-- Performance list dynamically generated -->
         <c:forEach items="${performances}" var="performance">
-            <div class="d-flex text-body-secondary pt-3">
-                <div class="image-container" style="width: 100px; height: 100px; margin-right: 10px;">
-                    <a href="${pageContext.request.contextPath}/view/${performance.id}">
-                        <img src="${performance.imageUrl}"
-                             alt="Event Image"
+            <div class="d-flex align-items-start pt-3">
+                <div class="image-container me-3" style="width: 100px; height: 100px;">
+                    <a href="${pageContext.request.contextPath}/performance/view/${performance.id}">
+                        <img src="${performance.posterFile}" alt="Performance Image"
                              class="img-fluid rounded"
                              style="width: 100%; height: 100%; object-fit: cover;">
                     </a>
                 </div>
-                <div class="content-wrapper flex-grow-1">
-                    <a href="${pageContext.request.contextPath}/view/${performance.id}"
-                       class="width100 pb-3 mb-0 small lh-sm border-bottom">
-                        <span class="d-block">
-                            <span class="display-flex">
-                                <strong class="content-title d-block text-gray-dark">
-                                        ${performance.title}
-                                </strong>
-                                <span class="content-price">
-                                    인원 : ${performance.currentPeople} / ${performance.maxPeople}
-                                </span>
-                            </span>
-                            <span class="display-flex">
-                                <span class="sr right-margin-writer">
-                                        ${performance.clubName}
-                                </span>
-                                <span class="content-date text-gray">
-                                        ${fn:substring(performance.date, 0, 10)}
-                                </span>
-                            </span>
-                        </span>
-                        <span class="content-summary phone">
-                            ${fn:substring(performance.description, 0, 100)}...
-                        </span>
+                <div class="flex-grow-1">
+                    <a href="${pageContext.request.contextPath}/performance/view/${performance.id}" class="text-decoration-none text-dark">
+                        <h5 class="mb-1">${performance.title}</h5>
                     </a>
+                    <p class="mb-1 text-muted">Participants: ${performance.currentNum} / ${performance.maxNum}</p>
+                    <p class="mb-0 text-muted">Date: ${fn:substring(performance.performanceDate, 0, 10)}</p>
                 </div>
             </div>
         </c:forEach>
 
+        <!-- Fallback for empty list -->
+        <c:if test="${fn:length(performances) == 0}">
+            <p class="text-center mt-4">No performances available.</p>
+        </c:if>
     </div>
 </main>
 
-<%@include file="../inc/foot.jsp" %>
+<%@ include file="../inc/foot.jsp" %>
 
 </body>
 

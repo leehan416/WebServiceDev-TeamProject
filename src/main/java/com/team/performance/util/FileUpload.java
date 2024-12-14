@@ -28,7 +28,7 @@ public class FileUpload {
             }
         }
 
-        MultipartRequest multipartRequest = null;
+        MultipartRequest multipartRequest;
         try {
             // Create MultipartRequest
             multipartRequest = new MultipartRequest(
@@ -45,6 +45,7 @@ public class FileUpload {
         }
 
         // Retrieve uploaded file and form data
+        String idStr = multipartRequest.getParameter("id"); // Retrieve ID for edit
         String posterFile = multipartRequest.getFilesystemName("posterFile");
         String title = multipartRequest.getParameter("title");
         String currentNumStr = multipartRequest.getParameter("currentNum");
@@ -52,17 +53,20 @@ public class FileUpload {
         String performanceDate = multipartRequest.getParameter("performanceDate");
         String content = multipartRequest.getParameter("content");
 
-        if (posterFile == null || title == null || currentNumStr == null || maxNumStr == null || performanceDate == null || content == null) {
-            System.out.println("Error: Missing required fields or file.");
+        if (title == null || currentNumStr == null || maxNumStr == null || performanceDate == null || content == null) {
+            System.out.println("Error: Missing required fields.");
             return null;
         }
 
+        // Parse numeric and date fields
+        Integer id = (idStr != null && !idStr.isEmpty()) ? Integer.parseInt(idStr) : null;
         int currentNum = Integer.parseInt(currentNumStr);
         int maxNum = Integer.parseInt(maxNumStr);
 
         // Populate PerformanceVO
         PerformanceVO performanceVO = new PerformanceVO();
-        performanceVO.setPosterFile("/upload/" + posterFile); // Store relative path
+        performanceVO.setId(id); // Set ID if available
+        performanceVO.setPosterFile(posterFile != null ? "/upload/" + posterFile : null); // Set relative file path
         performanceVO.setTitle(title);
         performanceVO.setCurrentNum(currentNum);
         performanceVO.setMaxNum(maxNum);

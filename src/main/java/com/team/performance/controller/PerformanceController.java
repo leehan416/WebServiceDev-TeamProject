@@ -97,7 +97,14 @@ public class PerformanceController {
         existingPerformance.setPerformanceDate(updatedPerformance.getPerformanceDate());
         existingPerformance.setContent(updatedPerformance.getContent());
 
-        performanceService.updatePerformance(existingPerformance);
-        return "redirect:/performance/list";
+        try {
+            performanceService.updatePerformance(existingPerformance);
+            model.addAttribute("performance", existingPerformance);
+            return "performance/edit_ok";
+        } catch (Exception e) {
+            model.addAttribute("error", "An error occurred while updating the performance. Please try again.");
+            e.printStackTrace();
+            return "performance/edit";
+        }
     }
 }

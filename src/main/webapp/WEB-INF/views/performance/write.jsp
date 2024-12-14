@@ -22,12 +22,15 @@
 
 <main class="container mt-5">
     <h1 class="text-center mb-4">Create a New Performance</h1>
-    <form action="${pageContext.request.contextPath}/performance/write_ok" method="post" enctype="multipart/form-data">
+    <form action="${pageContext.request.contextPath}/performance/write_ok" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
         <!-- Title -->
         <div class="row mb-3">
             <label for="performanceTitle" class="col-sm-2 col-form-label">Title</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="performanceTitle" name="title" placeholder="Enter performance title" required>
+                <div class="invalid-feedback">
+                    Please provide a performance title.
+                </div>
             </div>
         </div>
 
@@ -36,12 +39,18 @@
             <label for="currentNum" class="col-sm-2 col-form-label">Current Participants</label>
             <div class="col-sm-10">
                 <input type="number" class="form-control" id="currentNum" name="currentNum" placeholder="0" required>
+                <div class="invalid-feedback">
+                    Please specify the current number of participants.
+                </div>
             </div>
         </div>
         <div class="row mb-3">
             <label for="maxNum" class="col-sm-2 col-form-label">Maximum Participants</label>
             <div class="col-sm-10">
                 <input type="number" class="form-control" id="maxNum" name="maxNum" placeholder="Enter maximum participants" required>
+                <div class="invalid-feedback">
+                    Please provide the maximum number of participants.
+                </div>
             </div>
         </div>
 
@@ -50,6 +59,9 @@
             <label for="performanceDate" class="col-sm-2 col-form-label">Date</label>
             <div class="col-sm-10">
                 <input type="date" class="form-control" id="performanceDate" name="performanceDate" required>
+                <div class="invalid-feedback">
+                    Please select a date for the performance.
+                </div>
             </div>
         </div>
 
@@ -58,6 +70,9 @@
             <label for="posterFile" class="col-sm-2 col-form-label">Poster</label>
             <div class="col-sm-10">
                 <input type="file" class="form-control" id="posterFile" name="posterFile" accept="image/*" required>
+                <div class="invalid-feedback">
+                    Please upload a poster image.
+                </div>
             </div>
         </div>
 
@@ -66,6 +81,9 @@
             <label for="content" class="col-sm-2 col-form-label">Description</label>
             <div class="col-sm-10">
                 <textarea class="form-control" id="content" name="content" rows="6" placeholder="Enter performance details" required></textarea>
+                <div class="invalid-feedback">
+                    Please provide a description of the performance.
+                </div>
             </div>
         </div>
 
@@ -78,6 +96,23 @@
 </main>
 
 <%@ include file="../inc/foot.jsp" %>
+
+<script>
+    // Bootstrap validation
+    (function () {
+        'use strict';
+        const forms = document.querySelectorAll('.needs-validation');
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    })();
+</script>
 
 </body>
 

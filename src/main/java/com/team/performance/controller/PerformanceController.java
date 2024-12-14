@@ -2,20 +2,22 @@ package com.team.performance.controller;
 
 import com.team.performance.VO.PerformanceVO;
 import com.team.performance.service.PerformanceService;
+import com.team.performance.util.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping(value = "/performance")
 public class PerformanceController {
 
     @Autowired
-    public PerformanceService performanceService;
+    private PerformanceService performanceService;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String listPage(Model model) {
@@ -39,19 +41,18 @@ public class PerformanceController {
     }
 
     @RequestMapping(value = "/write_ok", method = RequestMethod.POST)
-    public String writeOkPage(@ModelAttribute PerformanceVO performance, Model model) {
-        // Validate input fields
-        if (performance.getTitle() == null || performance.getTitle().trim().isEmpty()) {
-            model.addAttribute("error", "Title is required");
+    public String writeOkPage(HttpServletRequest request, Model model) {
+        FileUpload fileUpload = new FileUpload();
+        PerformanceVO performance = fileUpload.uploadFile(request);
+
+        if (performance == null) {
+            model.addAttribute("error", "File upload failed or invalid input detected.");
             return "performance/write";
         }
 
-        // Log debug info for troubleshooting
-        System.out.println("Performance Data: " + performance);
-
-        // Add performance
         performanceService.addPerformance(performance);
-        return "redirect:/performance/list";
+        model.addAttribute("performance", performance);
+        return "performance/write_ok";
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
@@ -71,8 +72,39 @@ public class PerformanceController {
     }
 
     @RequestMapping(value = "/edit_ok", method = RequestMethod.POST)
-    public String editOkPage(@ModelAttribute PerformanceVO performance) {
-        performanceService.updatePerformance(performance);
-        return "redirect:/performance/list";
+    public String editOkPage(HttpServletRequest request, Model model) {
+        FileUpload fileUpload = new FileUpload();
+        PerformanceVO updatedPerformance = fileUpload.uploadFile(request);
+
+        if (updatedPerformance == null) {
+            model.addAttribute("error", "File upload failed or invalid input detected.");
+            return "performance/edit";
+        }
+
+        PerformanceVO existingPerformance = performanceService.getPerformanceById(updatedPerformance.getId());
+        if (existingPerformance == null) {
+            model.addAttribute("error", "Performance not found.");
+            return "performance/edit";
+        }
+
+        // Update fields if a new file is uploaded, otherwise keep the existing file
+        if (updatedPerformance.getPosterFile() != null) {
+            existingPerformance.setPosterFile(updatedPerformance.getPosterFile());
+        }
+        existingPerformance.setTitle(updatedPerformance.getTitle());
+        existingPerformance.setCurrentNum(updatedPerformance.getCurrentNum());
+        existingPerformance.setMaxNum(updatedPerformance.getMaxNum());
+        existingPerformance.setPerformanceDate(updatedPerformance.getPerformanceDate());
+        existingPerformance.setContent(updatedPerformance.getContent());
+
+        try {
+            performanceService.updatePerformance(existingPerformance);
+            model.addAttribute("performance", existingPerformance);
+            return "performance/edit_ok";
+        } catch (Exception e) {
+            model.addAttribute("error", "An error occurred while updating the performance. Please try again.");
+            e.printStackTrace();
+            return "performance/edit";
+        }
     }
 }

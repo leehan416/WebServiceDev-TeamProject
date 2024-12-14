@@ -25,8 +25,14 @@
         <h2 class="text-danger mb-3">Confirm Deletion</h2>
         <p>Are you sure you want to delete the performance titled "<strong>${performance.title}</strong>"?</p>
 
+        <!-- Display Poster -->
+        <div class="my-3">
+            <img src="${performance.posterFile}" alt="Performance Poster" class="img-fluid rounded shadow-sm" style="max-width: 200px;">
+        </div>
+
         <form action="${pageContext.request.contextPath}/performance/delete_ok" method="post">
             <input type="hidden" name="id" value="${performance.id}">
+            <input type="hidden" name="posterFilePath" value="${performance.posterFile}">
             <div class="d-flex justify-content-center gap-3 mt-4">
                 <a href="${pageContext.request.contextPath}/performance/list" class="btn btn-secondary">Cancel</a>
                 <button type="submit" class="btn btn-danger">Delete</button>

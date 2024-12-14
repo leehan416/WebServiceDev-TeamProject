@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delete Confirmation</title>
+    <title>Delete Performance</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -22,12 +22,22 @@
 
 <main class="container mt-5">
     <div class="p-4 bg-light rounded shadow-sm text-center">
-        <h2 class="text-success mb-3">Deletion Successful</h2>
-        <p>The performance has been successfully deleted.</p>
+        <h2 class="text-danger mb-3">Confirm Deletion</h2>
+        <p>Are you sure you want to delete the performance titled "<strong>${performance.title}</strong>"?</p>
 
-        <div class="d-flex justify-content-center gap-3 mt-4">
-            <a href="${pageContext.request.contextPath}/performance/list" class="btn btn-primary">Back to List</a>
+        <!-- Display Poster -->
+        <div class="my-3">
+            <img src="${performance.posterFile}" alt="Performance Poster" class="img-fluid rounded shadow-sm" style="max-width: 200px;">
         </div>
+
+        <form action="${pageContext.request.contextPath}/performance/delete_ok" method="post">
+            <input type="hidden" name="id" value="${performance.id}">
+            <input type="hidden" name="posterFilePath" value="${performance.posterFile}">
+            <div class="d-flex justify-content-center gap-3 mt-4">
+                <a href="${pageContext.request.contextPath}/performance/list" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </div>
+        </form>
     </div>
 </main>
 

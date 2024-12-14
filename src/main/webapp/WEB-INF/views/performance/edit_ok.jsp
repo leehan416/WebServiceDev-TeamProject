@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,13 +23,25 @@
 
 <main class="container mt-5">
     <div class="p-4 bg-light rounded shadow-sm text-center">
-        <h2 class="text-success mb-3">Edit Successful!</h2>
-        <p class="mb-4">The performance has been updated successfully. You can now return to the list or view the updated performance.</p>
-
-        <div class="d-flex justify-content-center gap-3">
-            <a href="${pageContext.request.contextPath}/performance/list" class="btn btn-secondary">Back to List</a>
-            <a href="${pageContext.request.contextPath}/performance/view/${performance.id}" class="btn btn-primary">View Performance</a>
-        </div>
+        <c:choose>
+            <%-- Success Edit --%>
+            <c:when test="${performance != null}">
+                <h2 class="text-success mb-3">Edit Successful!</h2>
+                <p class="mb-4">The performance has been updated successfully. You can now return to the list or view the updated performance.</p>
+                <div class="d-flex justify-content-center gap-3">
+                    <a href="${pageContext.request.contextPath}/performance/list" class="btn btn-secondary">Back to List</a>
+                    <a href="${pageContext.request.contextPath}/performance/view/${performance.id}" class="btn btn-primary">View Performance</a>
+                </div>
+            </c:when>
+            <%-- Fail Edit --%>
+            <c:otherwise>
+                <h2 class="text-danger mb-3">Edit Failed!</h2>
+                <p class="mb-4">There was an issue updating the performance. Please try again or contact support.</p>
+                <div class="d-flex justify-content-center">
+                    <a href="${pageContext.request.contextPath}/performance/list" class="btn btn-secondary">Back to List</a>
+                </div>
+            </c:otherwise>
+        </c:choose>
     </div>
 </main>
 

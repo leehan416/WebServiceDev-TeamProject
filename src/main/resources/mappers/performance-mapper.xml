@@ -37,7 +37,7 @@
     </select>
 
     <!-- Get Performance by Title and Date -->
-    <select id="getPerformance" resultType="com.team.performance.VO.PerformanceVO">
+    <select id="getPerformance" parameterType="map" resultType="com.team.performance.VO.PerformanceVO">
         SELECT
             id,
             title,

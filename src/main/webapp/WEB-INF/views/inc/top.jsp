@@ -15,7 +15,7 @@
                 <a href="${pageContext.request.contextPath}/performance/write" class="nav-link">Add New</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/mypage" class="nav-link">MyPage</a>
+                <a href="${pageContext.request.contextPath}/reservations/mypage" class="nav-link">MyPage</a>
             </li>
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/login" class="nav-link">Login</a>

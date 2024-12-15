@@ -2,63 +2,23 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team.reservation.mapper.ReservationMapper">
-
-    <!-- Retrieve reservation by ID -->
-    <select id="getReservationById" resultType="com.team.reservation.VO.ReservationVO">
-        SELECT r.id,
-               r.user_id AS userId,
-               r.performance_id AS performanceId,
-               p.title AS performanceTitle,
-               p.performance_date AS performanceDate,
-               r.reg_date AS regDate
-        FROM reservation r
-                 INNER JOIN performance p
-                            ON r.performance_id = p.id
-        WHERE r.id = #{id}
-    </select>
-
-    <!-- Retrieve a specific reservation -->
-    <select id="getReservation" resultType="com.team.reservation.VO.ReservationVO">
-        SELECT r.id,
-               r.user_id AS userId,
-               r.performance_id AS performanceId,
-               p.title AS performanceTitle,
-               p.performance_date AS performanceDate,
-               r.reg_date AS regDate
-        FROM reservation r
-                 INNER JOIN performance p
-                            ON r.performance_id = p.id
-        WHERE r.user_id = #{userId}
-          AND r.performance_id = #{performanceId}
-    </select>
-
     <!-- Insert a new reservation -->
-    <insert id="insertReservation" parameterType="com.team.reservation.VO.ReservationVO">
+    <insert id="addReservation" parameterType="com.team.reservation.VO.ReservationVO">
         INSERT INTO reservation (user_id, performance_id)
         VALUES (#{userId}, #{performanceId})
     </insert>
 
-    <!-- Retrieve all reservations for a specific user -->
-    <select id="selectReservationsByUserId" resultType="com.team.reservation.VO.ReservationVO">
-        SELECT r.id,
-               r.user_id AS userId,
-               r.performance_id AS performanceId,
-               p.title AS performanceTitle,
-               p.performance_date AS performanceDate,
-               r.reg_date AS regDate
-        FROM reservation r
-                 INNER JOIN performance p
-                            ON r.performance_id = p.id
-        WHERE r.user_id = #{userId}
-        ORDER BY r.reg_date DESC
+    <delete id="deleteReservationById" parameterType="Integer">
+        DELETE FROM reservation WHERE id = #{id}
+    </delete>
+
+    <select id="getUserIdByReservationId" parameterType="Integer" resultType="Integer">
+        SELECT user_id FROM reservation WHERE id = #{id}
     </select>
 
-    <!-- Cancel a reservation -->
-    <update id="cancelReservation" parameterType="map">
-        UPDATE reservation
-        SET status = 'CANCELLED'
-        WHERE id = #{reservationId}
-          AND user_id = #{userId}
-    </update>
+    <select id="getReservationsByUserId" parameterType="Integer" resultType="com.team.reservation.VO.ReservationVO">
+        SELECT * FROM reservation WHERE user_id = #{userId}
+    </select>
+
 
 </mapper>

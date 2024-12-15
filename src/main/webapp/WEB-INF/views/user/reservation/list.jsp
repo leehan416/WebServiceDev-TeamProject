@@ -18,7 +18,6 @@
 </head>
 
 
-
 <body>
 <%@ include file="../../inc/top.jsp" %>
 
@@ -30,14 +29,24 @@
             <th>Reservation ID</th>
             <th>Performance ID</th>
             <th>Reservation Date</th>
+            <th>Action</th>
         </tr>
         </thead>
         <tbody>
         <c:forEach items="${reservations}" var="reservation">
             <tr>
                 <td>${reservation.id}</td>
-                <td>${reservation.performanceId}</td>
-                <td>${reservation.regDate}</td>
+                <td>${reservation.performance_id}</td>
+                <td>${reservation.reg_date}</td>
+                <td>
+
+                    <a href="remove?id=${reservation.id}">
+                        <button type="button" class="btn btn-secondary" onclick="window.history.back();">
+                            취소
+                        </button>
+                    </a>
+                </td>
+
             </tr>
         </c:forEach>
         </tbody>

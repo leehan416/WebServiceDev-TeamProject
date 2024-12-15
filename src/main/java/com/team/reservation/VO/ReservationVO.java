@@ -12,8 +12,8 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReservationVO {
-    private Integer id;             // Reservation ID (Primary Key)
-    private Integer userId;         // User ID making the reservation
-    private Integer performanceId;  // Performance ID associated with the reservation
-    private Timestamp regDate;      // Reservation creation timestamp
+    private Integer id;
+    private Integer user_id;
+    private Integer performance_id;
+    private Timestamp reg_date;
 }

@@ -23,6 +23,20 @@
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/login/logout" class="nav-link">Logout</a>
             </li>
-        </ul>
+            <li>
+                <form role="search" class="d-flex" action="${pageContext.request.contextPath}/performance/search">
+                    <%
+                        String text = request.getParameter("text");
+                        if (text == null) text = "";
+                    %>
+                    <input value="<%= text %>" name="text" type="search" class="form-control me-2"
+                           placeholder="Search..." aria-label="Search" style="width: 200px; height: 30px">
+                    <button class="btn btn-primary me-2" type="submit"
+                            style="border-radius: 4px; height: 30px; margin-top: 5px; padding-top: 2px">
+                        Search
+                    </button>
+                </form>
+            </li>
+            </ui>
     </header>
 </div>

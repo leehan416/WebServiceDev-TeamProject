@@ -24,19 +24,6 @@
 <%@ include file="../inc/top.jsp" %>
 
 <main class="container">
-
-    <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                data-bs-toggle="dropdown" aria-expanded="false">
-            Sorting
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <li><a class="dropdown-item" href="?sorted=title">title</a></li>
-            <li><a class="dropdown-item" href="?sorted=date">date</a></li>
-        </ul>
-    </div>
-
-
     <div class="my-3 p-3 bg-body rounded shadow-sm">
         <h6 class="border-bottom pb-2 mb-0">Performance List</h6>
 
@@ -54,8 +41,7 @@
                 </div>
                 <!-- Performance Details -->
                 <div class="flex-grow-1">
-                    <a href="${pageContext.request.contextPath}/performance/view/${performance.id}"
-                       class="text-decoration-none text-dark">
+                    <a href="${pageContext.request.contextPath}/performance/view/${performance.id}" class="text-decoration-none text-dark">
                         <h5 class="mb-1">${performance.title}</h5>
                     </a>
                     <p class="mb-1 text-muted">Participants: ${performance.currentNum} / ${performance.maxNum}</p>

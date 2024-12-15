@@ -25,13 +25,6 @@ public class ReservationController {
 
         List<ReservationVO> reservations = service.getUserReservations(vo.getId());
         model.addAttribute("reservations", reservations);
-
-
-
-        for (ReservationVO reservation : reservations) {
-
-            log.info("id = {} PerformanceId = {}", reservation.getId(), reservation.getPerformance_id());
-        }
         return "user/reservation/list";
     }
 

@@ -10,6 +10,9 @@ public interface PerformanceMapper {
 
     // Retrieve all performances
     List<PerformanceVO> getAllPerformances();
+    List<PerformanceVO> getPerformancesByText(String text);
+    List<PerformanceVO> getPerformancesOrderByTitle();
+    List<PerformanceVO> getPerformancesOrderByDate();
 
     // Retrieve a specific performance by its ID
     PerformanceVO getPerformanceById(Integer id);

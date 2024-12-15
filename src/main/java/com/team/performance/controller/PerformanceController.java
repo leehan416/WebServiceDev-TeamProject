@@ -1,18 +1,15 @@
 package com.team.performance.controller;
 
 import com.team.performance.VO.PerformanceVO;
+import com.team.performance.mapper.PerformanceMapper;
 import com.team.performance.service.PerformanceService;
-import com.team.performance.util.FileUpload;
 import com.team.user.VO.UserVO;
 import com.team.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
@@ -29,13 +26,23 @@ public class PerformanceController {
     private UserService userService;
 
 
+
+
+
+
     @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
     public String viewPage(@PathVariable Integer id, Model model) {
         PerformanceVO performance = performanceService.getPerformanceById(id);
         if (performance == null) return "redirect:/performance/list";
-
         model.addAttribute("performance", performance);
         return "performance/view";
+    }
+
+
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public String home (@RequestParam String text , Model model){
+        model.addAttribute("performanceList", performanceService.getPerformancesByText(text));
+        return "performance/search";
     }
 
     @RequestMapping(value = "/write", method = RequestMethod.GET)
@@ -51,12 +58,7 @@ public class PerformanceController {
     @RequestMapping(value = "/write_ok", method = RequestMethod.POST)
     public String writeOkPage(@SessionAttribute(value = "login") UserVO vo, HttpServletRequest request, Model model) {
 
-        try {
-            request.setCharacterEncoding("UTF-8");
-        }catch (Exception ignore){}
-
-        FileUpload fileUpload = new FileUpload();
-        PerformanceVO performance = fileUpload.uploadFile(request, vo.getId());
+        PerformanceVO performance = performanceService.uploadFile(request, vo.getId());
 
         //  error
         if (performance == null) return "redirect:/";
@@ -85,8 +87,9 @@ public class PerformanceController {
 
         //===================
         Integer writerId = performanceService.getPerformanceById(id).getWriter_id();
-
-        if (!vo.checkAuth_manager() || !Objects.equals(vo.getId(), writerId)) {
+        System.out.println("pass here");
+        if (!Objects.equals(vo.getId(), writerId)) {
+            System.out.println("vo id = " + vo.getId() + "writer id = " + writerId);
             return "redirect:/performance/view/" + id;
         }
         //===================
@@ -105,13 +108,13 @@ public class PerformanceController {
             @SessionAttribute(value = "login") UserVO vo,
             HttpServletRequest request, Model model) {
 
-        if (!vo.checkAuth_admin()  || !vo.checkAuth_manager())
+        if (!vo.checkAuth_admin() || !vo.checkAuth_manager())
             return "redirect:/";
 
-        FileUpload fileUpload = new FileUpload();
+//        FileUpload fileUpload = new FileUpload();
 
 
-        PerformanceVO updatedPerformance = fileUpload.uploadFile(request, vo.getId());
+        PerformanceVO updatedPerformance = performanceService.uploadFile(request, vo.getId());
         PerformanceVO existingPerformance = performanceService.getPerformanceById(updatedPerformance.getId());
 
         // error checks

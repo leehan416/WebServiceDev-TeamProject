@@ -38,6 +38,12 @@ public class ReservationService {
     }
 
     public Integer addReservation(Integer userId, Integer performanceId) {
+        Integer curNum = performanceMapper.getPerformanceById(performanceId).getCurrentNum();
+        Integer maxNum = performanceMapper.getPerformanceById(performanceId).getMaxNum();
+
+        if (curNum > maxNum){
+            return -1;
+        }
 
         ReservationVO vo = new ReservationVO(null, userId, performanceId, null);
 

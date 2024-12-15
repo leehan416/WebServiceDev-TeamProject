@@ -97,7 +97,7 @@
 
                 <!-- Buttons -->
                 <div class="text-center">
-                    <a href="${pageContext.request.contextPath}/performance/list" class="btn btn-outline-secondary me-2">Cancel</a>
+                    <a href="${pageContext.request.contextPath}/" class="btn btn-outline-secondary me-2">Cancel</a>
                     <button type="submit" class="btn btn-primary">Save Changes</button>
                 </div>
             </form>

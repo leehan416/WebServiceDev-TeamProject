@@ -16,6 +16,54 @@
         ORDER BY performance_date DESC
     </select>
 
+    <select id="getPerformancesOrderByTitle" resultType="com.team.performance.VO.PerformanceVO">
+        SELECT id,
+               title,
+               current_num      AS currentNum,
+               max_num          AS maxNum,
+               performance_date AS performanceDate,
+               reg_date         AS regDate,
+               poster_file      AS posterFile,
+               content
+        FROM performance
+        ORDER BY title ASC
+    </select>
+
+
+    <select id="getPerformancesOrderByDate" resultType="com.team.performance.VO.PerformanceVO">
+        SELECT id,
+               title,
+               current_num      AS currentNum,
+               max_num          AS maxNum,
+               performance_date AS performanceDate,
+               reg_date         AS regDate,
+               poster_file      AS posterFile,
+               content
+        FROM performance
+        ORDER BY performance_date DESC
+    </select>
+
+
+
+    <select id="getPerformancesByText" parameterType="map" resultType="com.team.performance.VO.PerformanceVO">
+        SELECT id,
+        title,
+        current_num      AS currentNum,
+        max_num          AS maxNum,
+        performance_date AS performanceDate,
+        reg_date         AS regDate,
+        poster_file      AS posterFile,
+        content
+        FROM performance
+        <where>
+            <if test="searchText != null and searchText != ''">
+                (title LIKE CONCAT('%', #{searchText}, '%')
+                OR content LIKE CONCAT('%', #{searchText}, '%'))
+            </if>
+        </where>
+        ORDER BY performance_date DESC
+    </select>
+
     <!-- Get Performance by ID -->
     <select id="getPerformanceById" parameterType="int" resultType="com.team.performance.VO.PerformanceVO">
         SELECT id,
@@ -25,7 +73,8 @@
                performance_date AS performanceDate,
                reg_date         AS regDate,
                poster_file      AS posterFile,
-               content
+               content,
+               writer_id
         FROM performance
         WHERE id = #{id}
     </select>
@@ -39,7 +88,8 @@
                performance_date AS performanceDate,
                reg_date         AS regDate,
                poster_file      AS posterFile,
-               content
+               content,
+               writer_id        AS writer_id
         FROM performance
         WHERE title = #{title}
           AND performance_date = #{performanceDate}

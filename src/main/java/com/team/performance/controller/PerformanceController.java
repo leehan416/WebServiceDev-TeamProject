@@ -12,10 +12,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Objects;
 
 @Controller
 @Slf4j
@@ -58,13 +58,11 @@ public class PerformanceController {
         FileUpload fileUpload = new FileUpload();
         PerformanceVO performance = fileUpload.uploadFile(request, vo.getId());
 
-        //  error
         if (performance == null) return "redirect:/";
 
         performanceService.addPerformance(performance);
 //        model.addAttribute("performance", performance);
         return "redirect:/";
-
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
@@ -110,17 +108,13 @@ public class PerformanceController {
 
         FileUpload fileUpload = new FileUpload();
 
-
-        PerformanceVO updatedPerformance = fileUpload.uploadFile(request, vo.getId());
         PerformanceVO existingPerformance = performanceService.getPerformanceById(updatedPerformance.getId());
 
-        // error checks
         if (existingPerformance == null) {
             model.addAttribute("error", "File upload failed or invalid input detected.");
             return "performance/edit";
         }
 
-        // Update fields if a new file is uploaded, otherwise keep the existing file
         if (updatedPerformance.getPosterFile() != null)
             existingPerformance.setPosterFile(updatedPerformance.getPosterFile());
 

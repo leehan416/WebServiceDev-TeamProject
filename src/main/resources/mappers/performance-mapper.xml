@@ -82,4 +82,38 @@
         WHERE id = #{id}
     </update>
 
+    <!-- Retrieve performances sorted by date in ascending order -->
+    <select id="selectPerformancesSortedByDateAsc" resultType="com.team.performance.VO.PerformanceVO">
+        SELECT
+            id,
+            title,
+            current_num AS currentNum,
+            max_num AS maxNum,
+            performance_date AS performanceDate,
+            reg_date AS regDate,
+            poster_file AS posterFile,
+            content
+        FROM
+            performance
+        ORDER BY
+            performance_date ASC
+    </select>
+
+    <!-- Retrieve performances sorted by date in descending order -->
+    <select id="selectPerformancesSortedByDateDesc" resultType="com.team.performance.VO.PerformanceVO">
+        SELECT
+            id,
+            title,
+            current_num AS currentNum,
+            max_num AS maxNum,
+            performance_date AS performanceDate,
+            reg_date AS regDate,
+            poster_file AS posterFile,
+            content
+        FROM
+            performance
+        ORDER BY
+            performance_date DESC
+    </select>
+
 </mapper>

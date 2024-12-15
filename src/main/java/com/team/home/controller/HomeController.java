@@ -1,29 +1,22 @@
 package com.team.home.controller;
 
+import com.team.performance.service.PerformanceService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.HttpSession;
 
 @Controller
 public class HomeController {
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String home(HttpSession session) {
-        // Check if the user is logged in
-        if (session.getAttribute("login") == null) {
-            return "redirect:/login"; // Redirect to login if not logged in
-        }
-        return "index"; // Show index page for logged-in users
-    }
+    @Autowired
+    PerformanceService performanceService;
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String loginPage(HttpSession session) {
-        // If already logged in, redirect to main options page
-        if (session.getAttribute("login") != null) {
-            return "redirect:/";
-        }
-        return "user/login/login"; // Login page
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String home (Model model){
+        model.addAttribute("performanceList", performanceService.getAllPerformances());
+        return "performance/list";
     }
 }

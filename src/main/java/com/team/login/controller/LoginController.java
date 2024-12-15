@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,7 +19,7 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public String loginPage(HttpSession session) {
         if (session.getAttribute("login") != null) {
             return "redirect:/";
@@ -40,7 +41,9 @@ public class LoginController {
         if (loginvo != null) {
             log.info("login success!");
             session.setAttribute("login", loginvo);
-            return "redirect:/performance/list";
+            session.setAttribute("userId", log);
+
+            return "redirect:/";
         } else {
             log.info("login fail!");
             return "redirect:/login";

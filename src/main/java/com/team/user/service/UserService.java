@@ -14,12 +14,10 @@ public class UserService {
     public UserMapper userMapper;
 
     public UserVO getUserById(Integer id) {
-        System.out.println("!!!");
         log.info("id : {}", id);
         UserVO user = userMapper.getUserById(id);
 
         log.info("user_id : {}", user.getUser_id());
-        System.out.println("!!!");
         return user;
     }
 

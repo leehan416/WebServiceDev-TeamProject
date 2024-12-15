@@ -7,11 +7,10 @@
         FROM user
         WHERE id = #{id}
     </select>
-
     <select id="getUser" resultType="com.team.user.VO.UserVO">
-        SELECT user_id, password
+        SELECT *
         FROM user
         WHERE user_id = #{user_id}
-          and password = #{password}
+          and password = SHA2(#{password}, 256)
     </select>
 </mapper>

@@ -14,11 +14,11 @@ public class UserController {
     @Autowired
     public UserService userService;
 
-    // test
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public String testMethod(Model model){
-        UserVO user = userService.getUserById(1);
-        model.addAttribute("user_id", user.getUser_id());
-        return "test";
-    }
+//    // test
+//    @RequestMapping(value = "/test", method = RequestMethod.GET)
+//    public String testMethod(Model model){
+//        UserVO user = userService.getUserById(1);
+//        model.addAttribute("user_id", user.getUser_id());
+//        return "test";
+//    }
 }

@@ -3,13 +3,13 @@
         <!-- Navigation Links -->
         <ul class="nav justify-content-center pb-3 mb-3">
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/performance/list" class="nav-link px-2 text-muted">Performance List</a>
+                <a href="${pageContext.request.contextPath}" class="nav-link px-2 text-muted">List</a>
             </li>
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/performance/write" class="nav-link px-2 text-muted">Add New</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/user/reservations" class="nav-link px-2 text-muted">My Reservations</a>
+                <a href="${pageContext.request.contextPath}/mypage/" class="nav-link px-2 text-muted">MyPage</a>
             </li>
         </ul>
 

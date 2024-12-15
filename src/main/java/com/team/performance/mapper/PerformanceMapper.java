@@ -22,4 +22,10 @@ public interface PerformanceMapper {
 
     // Update a performance
     void updatePerformance(PerformanceVO performance);
+
+    // Retrieve performances sorted by date in ascending order
+    List<PerformanceVO> selectPerformancesSortedByDateAsc();
+
+    // Retrieve performances sorted by date in descending order
+    List<PerformanceVO> selectPerformancesSortedByDateDesc();
 }

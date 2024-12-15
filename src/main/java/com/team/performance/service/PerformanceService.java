@@ -55,4 +55,20 @@ public class PerformanceService {
         performanceMapper.updatePerformance(performance);
         log.info("Performance updated successfully.");
     }
+
+    // Retrieve performances sorted by date in ascending order
+    public List<PerformanceVO> getPerformancesSortedByDateAsc() {
+        log.info("Fetching performances sorted by date (ascending).");
+        List<PerformanceVO> performances = performanceMapper.selectPerformancesSortedByDateAsc();
+        log.info("Total performances fetched: {}", performances.size());
+        return performances;
+    }
+
+    // Retrieve performances sorted by date in descending order
+    public List<PerformanceVO> getPerformancesSortedByDateDesc() {
+        log.info("Fetching performances sorted by date (descending).");
+        List<PerformanceVO> performances = performanceMapper.selectPerformancesSortedByDateDesc();
+        log.info("Total performances fetched: {}", performances.size());
+        return performances;
+    }
 }

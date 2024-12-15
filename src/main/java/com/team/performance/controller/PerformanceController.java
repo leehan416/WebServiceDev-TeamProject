@@ -12,9 +12,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -28,7 +30,20 @@ public class PerformanceController {
     private UserService userService;
 
 
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public String listPerformances(@RequestParam(name = "sort", required = false, defaultValue = "latest") String sort,
+                                   Model model) {
+        List<PerformanceVO> performances;
 
+        if ("oldest".equals(sort)) {
+            performances = performanceService.getPerformancesSortedByDateAsc();
+        } else {
+            performances = performanceService.getPerformancesSortedByDateDesc();
+        }
+
+        model.addAttribute("performanceList", performances);
+        return "performance/list";
+    }
 
     @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
     public String viewPage(@PathVariable Integer id, Model model) {
@@ -54,13 +69,12 @@ public class PerformanceController {
         FileUpload fileUpload = new FileUpload();
         PerformanceVO performance = fileUpload.uploadFile(request);
 
-        //  error
+        // 에러 처리
         if (performance == null) return "redirect:/";
 
         performanceService.addPerformance(performance);
         model.addAttribute("performance", performance);
         return "redirect:/";
-
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
@@ -89,17 +103,16 @@ public class PerformanceController {
     public String editOkPage(HttpServletRequest request, Model model) {
         FileUpload fileUpload = new FileUpload();
 
-
         PerformanceVO updatedPerformance = fileUpload.uploadFile(request);
         PerformanceVO existingPerformance = performanceService.getPerformanceById(updatedPerformance.getId());
 
-        // error checks
+        // 에러 처리
         if (existingPerformance == null) {
             model.addAttribute("error", "File upload failed or invalid input detected.");
             return "performance/edit";
         }
 
-        // Update fields if a new file is uploaded, otherwise keep the existing file
+        // 파일 업로드 여부 확인
         if (updatedPerformance.getPosterFile() != null)
             existingPerformance.setPosterFile(updatedPerformance.getPosterFile());
 
@@ -112,7 +125,6 @@ public class PerformanceController {
         try {
             performanceService.updatePerformance(existingPerformance);
             model.addAttribute("performance", existingPerformance);
-//            return "performance/edit_ok";
             return "redirect:/";
         } catch (Exception e) {
             model.addAttribute("error", "An error occurred while updating the performance. Please try again.");

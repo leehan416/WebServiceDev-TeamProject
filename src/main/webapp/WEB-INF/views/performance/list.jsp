@@ -25,7 +25,13 @@
 
 <main class="container">
     <div class="my-3 p-3 bg-body rounded shadow-sm">
-        <h6 class="border-bottom pb-2 mb-0">Performance List</h6>
+        <h6 class="border-bottom pb-2 mb-0 d-flex justify-content-between align-items-center">
+            Performance List
+            <div>
+                <a href="${pageContext.request.contextPath}/performance/list?sort=latest" class="btn btn-sm btn-primary">최신순</a>
+                <a href="${pageContext.request.contextPath}/performance/list?sort=oldest" class="btn btn-sm btn-secondary">오래된순</a>
+            </div>
+        </h6>
 
         <!-- Performance list dynamically generated -->
         <c:forEach items="${performanceList}" var="performance">

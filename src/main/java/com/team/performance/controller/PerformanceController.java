@@ -50,6 +50,11 @@ public class PerformanceController {
 
     @RequestMapping(value = "/write_ok", method = RequestMethod.POST)
     public String writeOkPage(@SessionAttribute(value = "login") UserVO vo, HttpServletRequest request, Model model) {
+
+        try {
+            request.setCharacterEncoding("UTF-8");
+        }catch (Exception ignore){}
+
         FileUpload fileUpload = new FileUpload();
         PerformanceVO performance = fileUpload.uploadFile(request, vo.getId());
 

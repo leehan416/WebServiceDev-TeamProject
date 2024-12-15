@@ -35,15 +35,15 @@
         </div>
 
         <!-- Current and Maximum Participants -->
-        <div class="row mb-3">
-            <label for="currentNum" class="col-sm-2 col-form-label">Current Participants</label>
-            <div class="col-sm-10">
-                <input type="number" class="form-control" id="currentNum" name="currentNum" placeholder="0" required>
-                <div class="invalid-feedback">
-                    Please specify the current number of participants.
-                </div>
-            </div>
-        </div>
+<%--        <div class="row mb-3">--%>
+<%--            <label for="currentNum" class="col-sm-2 col-form-label">Current Participants</label>--%>
+<%--            <div class="col-sm-10">--%>
+<%--                <input type="number" class="form-control" id="currentNum" name="currentNum" placeholder="0" required>--%>
+<%--                <div class="invalid-feedback">--%>
+<%--                    Please specify the current number of participants.--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--        </div>--%>
         <div class="row mb-3">
             <label for="maxNum" class="col-sm-2 col-form-label">Maximum Participants</label>
             <div class="col-sm-10">

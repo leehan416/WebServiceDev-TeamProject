@@ -69,7 +69,6 @@ public class PerformanceController {
         FileUpload fileUpload = new FileUpload();
         PerformanceVO performance = fileUpload.uploadFile(request);
 
-        // 에러 처리
         if (performance == null) return "redirect:/";
 
         performanceService.addPerformance(performance);
@@ -106,13 +105,11 @@ public class PerformanceController {
         PerformanceVO updatedPerformance = fileUpload.uploadFile(request);
         PerformanceVO existingPerformance = performanceService.getPerformanceById(updatedPerformance.getId());
 
-        // 에러 처리
         if (existingPerformance == null) {
             model.addAttribute("error", "File upload failed or invalid input detected.");
             return "performance/edit";
         }
 
-        // 파일 업로드 여부 확인
         if (updatedPerformance.getPosterFile() != null)
             existingPerformance.setPosterFile(updatedPerformance.getPosterFile());
 

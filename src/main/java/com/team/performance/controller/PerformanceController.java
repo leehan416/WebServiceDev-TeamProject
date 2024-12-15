@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
 
 @Controller
 @Slf4j
@@ -26,8 +27,6 @@ public class PerformanceController {
 
     @Autowired
     private UserService userService;
-
-
 
 
     @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
@@ -45,20 +44,20 @@ public class PerformanceController {
 
         if (vo.checkAuth_manager())
             return "performance/write";
-
         else return "redirect:/";
+
     }
 
     @RequestMapping(value = "/write_ok", method = RequestMethod.POST)
-    public String writeOkPage(HttpServletRequest request, Model model) {
+    public String writeOkPage(@SessionAttribute(value = "login") UserVO vo, HttpServletRequest request, Model model) {
         FileUpload fileUpload = new FileUpload();
-        PerformanceVO performance = fileUpload.uploadFile(request);
+        PerformanceVO performance = fileUpload.uploadFile(request, vo.getId());
 
         //  error
         if (performance == null) return "redirect:/";
 
         performanceService.addPerformance(performance);
-        model.addAttribute("performance", performance);
+//        model.addAttribute("performance", performance);
         return "redirect:/";
 
     }
@@ -66,31 +65,46 @@ public class PerformanceController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String deletePerformance(@SessionAttribute(value = "login") UserVO vo, @PathVariable Integer id) {
 
-        if (vo.checkAuth_manager())
-            performanceService.deletePerformanceById(id);
+        Integer writerId = performanceService.getPerformanceById(id).getWriter_id();
 
-        return "redirect:/";
+        if (vo.checkAuth_admin() || vo.checkAuth_manager() && Objects.equals(vo.getId(), writerId)) {
+            performanceService.deletePerformanceById(id);
+            return "redirect:/";
+
+        } else return "redirect:/performance/view/" + id;
+
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String editPage(@SessionAttribute(value = "login") UserVO vo, @PathVariable Integer id, Model model) {
+
+        //===================
         if (!vo.checkAuth_manager()) {
             return "redirect:/performance/view/" + id;
         }
+        //===================
+
+
         PerformanceVO performance = performanceService.getPerformanceById(id);
         if (performance == null) {
-            return "redirect:/performance/list";
+            return "redirect:/";
         }
         model.addAttribute("performance", performance);
         return "performance/edit";
     }
 
     @RequestMapping(value = "/edit_ok", method = RequestMethod.POST)
-    public String editOkPage(HttpServletRequest request, Model model) {
+    public String editOkPage(
+            @SessionAttribute(value = "login") UserVO vo,
+            HttpServletRequest request, Model model) {
+
+        if (!vo.checkAuth_admin()  || !vo.checkAuth_manager())
+            return "redirect:/";
+
         FileUpload fileUpload = new FileUpload();
 
 
-        PerformanceVO updatedPerformance = fileUpload.uploadFile(request);
+        PerformanceVO updatedPerformance = fileUpload.uploadFile(request, vo.getId());
         PerformanceVO existingPerformance = performanceService.getPerformanceById(updatedPerformance.getId());
 
         // error checks
@@ -112,7 +126,6 @@ public class PerformanceController {
         try {
             performanceService.updatePerformance(existingPerformance);
             model.addAttribute("performance", existingPerformance);
-//            return "performance/edit_ok";
             return "redirect:/";
         } catch (Exception e) {
             model.addAttribute("error", "An error occurred while updating the performance. Please try again.");

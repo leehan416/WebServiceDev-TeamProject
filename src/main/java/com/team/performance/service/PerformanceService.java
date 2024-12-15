@@ -37,7 +37,7 @@ public class PerformanceService {
 
     // Insert a new performance
     public void addPerformance(PerformanceVO performance) {
-        log.info("Adding new performance: {}", performance);
+//        log.info("Adding new performance: {}", performance);
         performanceMapper.insertPerformance(performance);
         log.info("Performance added successfully.");
     }

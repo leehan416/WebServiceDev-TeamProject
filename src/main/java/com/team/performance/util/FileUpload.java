@@ -3,14 +3,16 @@ package com.team.performance.util;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.team.performance.VO.PerformanceVO;
+import com.team.user.VO.UserVO;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
 
 public class FileUpload {
-    public PerformanceVO uploadFile(HttpServletRequest request) {
+    public PerformanceVO uploadFile(HttpServletRequest request, Integer writer_id) {
         int sizeLimit = 15 * 1024 * 1024; // File size limit: 15MB
 
         // Retrieve upload path relative to the application context
@@ -72,6 +74,11 @@ public class FileUpload {
         performanceVO.setMaxNum(maxNum);
         performanceVO.setPerformanceDate(Timestamp.valueOf(performanceDate + " 00:00:00"));
         performanceVO.setContent(content);
+
+        ////////////////////////
+        performanceVO.setWriter_id(writer_id);
+        ////////////////////////
+
 
         return performanceVO;
     }

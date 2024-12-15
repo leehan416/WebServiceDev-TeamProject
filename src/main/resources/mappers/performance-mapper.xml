@@ -4,82 +4,93 @@
 
     <!-- Get All Performances -->
     <select id="getAllPerformances" resultType="com.team.performance.VO.PerformanceVO">
-        SELECT id,
-               title,
-               current_num      AS currentNum,
-               max_num          AS maxNum,
-               performance_date AS performanceDate,
-               reg_date         AS regDate,
-               poster_file      AS posterFile,
-               content
-        FROM performance
-        ORDER BY performance_date DESC
+        SELECT
+            id,
+            title,
+            current_num AS currentNum,
+            max_num AS maxNum,
+            performance_date AS performanceDate,
+            reg_date AS regDate,
+            poster_file AS posterFile,
+            content
+        FROM
+            performance
+        ORDER BY
+            performance_date DESC
     </select>
 
     <!-- Get Performance by ID -->
     <select id="getPerformanceById" parameterType="int" resultType="com.team.performance.VO.PerformanceVO">
-        SELECT id,
-               title,
-               current_num      AS currentNum,
-               max_num          AS maxNum,
-               performance_date AS performanceDate,
-               reg_date         AS regDate,
-               poster_file      AS posterFile,
-               content
-        FROM performance
-        WHERE id = #{id}
+        SELECT
+            id,
+            title,
+            current_num AS currentNum,
+            max_num AS maxNum,
+            performance_date AS performanceDate,
+            reg_date AS regDate,
+            poster_file AS posterFile,
+            content
+        FROM
+            performance
+        WHERE
+            id = #{id}
     </select>
 
     <!-- Get Performance by Title and Date -->
     <select id="getPerformance" parameterType="map" resultType="com.team.performance.VO.PerformanceVO">
-        SELECT id,
-               title,
-               current_num      AS currentNum,
-               max_num          AS maxNum,
-               performance_date AS performanceDate,
-               reg_date         AS regDate,
-               poster_file      AS posterFile,
-               content
-        FROM performance
-        WHERE title = #{title}
+        SELECT
+            id,
+            title,
+            current_num AS currentNum,
+            max_num AS maxNum,
+            performance_date AS performanceDate,
+            reg_date AS regDate,
+            poster_file AS posterFile,
+            content
+        FROM
+            performance
+        WHERE
+            title = #{title}
           AND performance_date = #{performanceDate}
     </select>
 
     <!-- Insert Performance -->
     <insert id="insertPerformance" parameterType="com.team.performance.VO.PerformanceVO">
-        INSERT INTO performance (title,
-                                 current_num,
-                                 max_num,
-                                 performance_date,
-                                 poster_file,
-                                 content,
-                                 writer_id)
-        VALUES (#{title},
-                #{currentNum},
-                #{maxNum},
-                #{performanceDate},
-                #{posterFile},
-                #{content},
-                #{writer_id})
+        INSERT INTO performance (
+            title,
+            current_num,
+            max_num,
+            performance_date,
+            poster_file,
+            content
+        ) VALUES (
+                     #{title},
+                     #{currentNum},
+                     #{maxNum},
+                     #{performanceDate},
+                     #{posterFile},
+                     #{content}
+                 )
     </insert>
 
     <!-- Delete Performance by ID -->
     <delete id="deletePerformanceById" parameterType="int">
-        DELETE
-        FROM performance
+        DELETE FROM performance
         WHERE id = #{id}
     </delete>
 
     <!-- Update Performance -->
     <update id="updatePerformance" parameterType="com.team.performance.VO.PerformanceVO">
         UPDATE performance
-        SET title            = #{title},
-            current_num      = #{currentNum},
-            max_num          = #{maxNum},
+        SET
+            title = #{title},
+            current_num = #{currentNum},
+            max_num = #{maxNum},
             performance_date = #{performanceDate},
-            poster_file      = #{posterFile},
-            content          = #{content}
-        WHERE id = #{id}
+            poster_file = #{posterFile},
+            content = #{content}
+        WHERE
+            id = #{id}
     </update>
 
     <!-- Retrieve performances sorted by date in ascending order -->

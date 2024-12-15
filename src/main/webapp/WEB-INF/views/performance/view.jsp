@@ -45,7 +45,7 @@
         <!-- Back to List -->
         <a href="${pageContext.request.contextPath}/" class="btn btn-secondary">Back to List</a>
         <!-- Reservation -->
-        <a href="${pageContext.request.contextPath}/reservations/write/${performance.id}" class="btn btn-primary">Reserve</a>
+        <a href="${pageContext.request.contextPath}/reservations/add?id=${performance.id}" class="btn btn-primary">Reserve</a>
         <!-- Edit and Delete Buttons -->
         <c:if test="${sessionScope.login != null}">
             <a href="${pageContext.request.contextPath}/performance/edit/${performance.id}" class="btn btn-warning">Edit</a>

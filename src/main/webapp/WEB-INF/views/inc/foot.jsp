@@ -9,7 +9,7 @@
                 <a href="${pageContext.request.contextPath}/performance/write" class="nav-link px-2 text-muted">Add New</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/mypage/" class="nav-link px-2 text-muted">MyPage</a>
+                <a href="${pageContext.request.contextPath}/reservations/mypage/" class="nav-link px-2 text-muted">MyPage</a>
             </li>
         </ul>
 

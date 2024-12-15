@@ -9,5 +9,4 @@ public interface UserMapper {
 
     UserVO getUser(UserVO vo);
 
-//    UserVO getUserByUserId(String userId);
 }

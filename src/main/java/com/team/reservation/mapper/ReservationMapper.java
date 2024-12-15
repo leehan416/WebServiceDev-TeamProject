@@ -9,10 +9,9 @@ import java.util.List;
 @Mapper
 public interface ReservationMapper {
 
-    /**
-     * Retrieve reservations for a specific user.
-     * @param userId The ID of the user
-     * @return List of ReservationVO objects
-     */
-    List<ReservationVO> selectReservationsByUserId(@Param("userId") Integer userId);
+    Integer addReservation(ReservationVO reservationVO);
+    Integer getUserIdByReservationId(Integer id);
+    Integer deleteReservationById(Integer id);
+    List<ReservationVO> getReservationsByUserId(Integer userId);
+
 }

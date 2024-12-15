@@ -20,4 +20,5 @@ public class PerformanceVO {
     private Timestamp regDate;        // Registration date
     private String posterFile;        // Poster file path or URL
     private String content;           // Performance description/content
+    private Integer writer_id;        // writer
 }

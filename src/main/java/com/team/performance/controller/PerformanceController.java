@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @Controller
 @Slf4j
@@ -29,21 +28,6 @@ public class PerformanceController {
     @Autowired
     private UserService userService;
 
-
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String listPerformances(@RequestParam(name = "sort", required = false, defaultValue = "latest") String sort,
-                                   Model model) {
-        List<PerformanceVO> performances;
-
-        if ("oldest".equals(sort)) {
-            performances = performanceService.getPerformancesSortedByDateAsc();
-        } else {
-            performances = performanceService.getPerformancesSortedByDateDesc();
-        }
-
-        model.addAttribute("performanceList", performances);
-        return "performance/list";
-    }
 
     @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
     public String viewPage(@PathVariable Integer id, Model model) {
@@ -60,49 +44,70 @@ public class PerformanceController {
 
         if (vo.checkAuth_manager())
             return "performance/write";
-
         else return "redirect:/";
+
     }
 
     @RequestMapping(value = "/write_ok", method = RequestMethod.POST)
-    public String writeOkPage(HttpServletRequest request, Model model) {
+    public String writeOkPage(@SessionAttribute(value = "login") UserVO vo, HttpServletRequest request, Model model) {
+
+        try {
+            request.setCharacterEncoding("UTF-8");
+        }catch (Exception ignore){}
+
         FileUpload fileUpload = new FileUpload();
-        PerformanceVO performance = fileUpload.uploadFile(request);
+        PerformanceVO performance = fileUpload.uploadFile(request, vo.getId());
 
         if (performance == null) return "redirect:/";
 
         performanceService.addPerformance(performance);
-        model.addAttribute("performance", performance);
+//        model.addAttribute("performance", performance);
         return "redirect:/";
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String deletePerformance(@SessionAttribute(value = "login") UserVO vo, @PathVariable Integer id) {
 
-        if (vo.checkAuth_manager())
-            performanceService.deletePerformanceById(id);
+        Integer writerId = performanceService.getPerformanceById(id).getWriter_id();
 
-        return "redirect:/";
+        if (vo.checkAuth_admin() || vo.checkAuth_manager() && Objects.equals(vo.getId(), writerId)) {
+            performanceService.deletePerformanceById(id);
+            return "redirect:/";
+
+        } else return "redirect:/performance/view/" + id;
+
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String editPage(@SessionAttribute(value = "login") UserVO vo, @PathVariable Integer id, Model model) {
-        if (!vo.checkAuth_manager()) {
+
+        //===================
+        Integer writerId = performanceService.getPerformanceById(id).getWriter_id();
+
+        if (!vo.checkAuth_manager() || !Objects.equals(vo.getId(), writerId)) {
             return "redirect:/performance/view/" + id;
         }
+        //===================
+
+
         PerformanceVO performance = performanceService.getPerformanceById(id);
         if (performance == null) {
-            return "redirect:/performance/list";
+            return "redirect:/";
         }
         model.addAttribute("performance", performance);
         return "performance/edit";
     }
 
     @RequestMapping(value = "/edit_ok", method = RequestMethod.POST)
-    public String editOkPage(HttpServletRequest request, Model model) {
+    public String editOkPage(
+            @SessionAttribute(value = "login") UserVO vo,
+            HttpServletRequest request, Model model) {
+
+        if (!vo.checkAuth_admin()  || !vo.checkAuth_manager())
+            return "redirect:/";
+
         FileUpload fileUpload = new FileUpload();
 
-        PerformanceVO updatedPerformance = fileUpload.uploadFile(request);
         PerformanceVO existingPerformance = performanceService.getPerformanceById(updatedPerformance.getId());
 
         if (existingPerformance == null) {

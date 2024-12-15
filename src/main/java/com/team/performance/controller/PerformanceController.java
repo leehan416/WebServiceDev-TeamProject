@@ -79,7 +79,9 @@ public class PerformanceController {
     public String editPage(@SessionAttribute(value = "login") UserVO vo, @PathVariable Integer id, Model model) {
 
         //===================
-        if (!vo.checkAuth_manager()) {
+        Integer writerId = performanceService.getPerformanceById(id).getWriter_id();
+
+        if (!vo.checkAuth_manager() || !Objects.equals(vo.getId(), writerId)) {
             return "redirect:/performance/view/" + id;
         }
         //===================
